@@ -98,6 +98,147 @@ const Patients: CollectionConfig = {
           ],
         },
         {
+          label: 'Traitements',
+          fields: [
+            {
+              name: 'traitements',
+              type: 'array',
+              labels: {
+                singular: 'Traitement',
+                plural: 'Traitements',
+              },
+              admin: {
+                initCollapsed: true,
+                components: {
+                  RowLabel: './components/TraitementRowLabel',
+                },
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'datePrescription',
+                      type: 'date',
+                      required: true,
+                      label: 'Date de prescription',
+                      admin: {
+                        width: '50%',
+                        date: {
+                          pickerAppearance: 'dayOnly',
+                          displayFormat: 'dd/MM/yyyy',
+                        },
+                      },
+                    },
+                    {
+                      name: 'medecin',
+                      type: 'text',
+                      required: true,
+                      label: 'Médecin prescripteur',
+                      admin: {
+                        width: '50%',
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'medicaments',
+                  type: 'array',
+                  label: 'Médicaments',
+                  labels: {
+                    singular: 'Médicament',
+                    plural: 'Médicaments',
+                  },
+                  minRows: 1,
+                  admin: {
+                    initCollapsed: true,
+                    components: {
+                      RowLabel: './components/MedicamentRowLabel',
+                    },
+                  },
+                  fields: [
+                    {
+                      name: 'nomMedicament',
+                      type: 'text',
+                      required: true,
+                      label: 'Nom du médicament',
+                    },
+                    {
+                      type: 'row',
+                      fields: [
+                        {
+                          name: 'dosage',
+                          type: 'text',
+                          required: true,
+                          label: 'Dosage',
+                          admin: {
+                            width: '33%',
+                            placeholder: 'ex: 500mg',
+                          },
+                        },
+                        {
+                          name: 'frequence',
+                          type: 'text',
+                          required: true,
+                          label: 'Fréquence',
+                          admin: {
+                            width: '33%',
+                            placeholder: 'ex: 3x/jour',
+                          },
+                        },
+                        {
+                          name: 'duree',
+                          type: 'text',
+                          required: true,
+                          label: 'Durée',
+                          admin: {
+                            width: '34%',
+                            placeholder: 'ex: 7 jours',
+                          },
+                        },
+                      ],
+                    },
+                    {
+                      name: 'instructions',
+                      type: 'textarea',
+                      label: 'Instructions particulières',
+                      admin: {
+                        rows: 2,
+                        placeholder: "Prendre avec de l'eau, avant/après repas...",
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'diagnostic',
+                  type: 'textarea',
+                  label: 'Diagnostic',
+                  admin: {
+                    rows: 3,
+                  },
+                },
+                {
+                  name: 'notesSupplementaires',
+                  type: 'textarea',
+                  label: 'Notes supplémentaires',
+                  admin: {
+                    rows: 2,
+                  },
+                },
+                {
+                  type: 'ui',
+                  name: 'downloadPrescription',
+                  admin: {
+                    components: {
+                      Field: './components/DownloadPrescriptionButton',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
           label: 'Hospitalisations',
           fields: [
             {
