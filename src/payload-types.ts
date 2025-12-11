@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    patients: Patient;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    patients: PatientsSelect<false> | PatientsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -86,6 +88,7 @@ export interface Config {
   db: {
     defaultIDType: string;
   };
+  fallbackLocale: null;
   globals: {};
   globalsSelect: {};
   locale: null;
@@ -160,6 +163,57 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "patients".
+ */
+export interface Patient {
+  id: string;
+  /**
+   * Identifiant unique du patient
+   */
+  patientId: string;
+  nom: string;
+  prenom: string;
+  poids: number;
+  taille: number;
+  /**
+   * Calculé automatiquement
+   */
+  imc?: number | null;
+  hospitalisations?:
+    | {
+        /**
+         * Utilisé comme titre de la section
+         */
+        nomHopital: string;
+        dateEntree: string;
+        dateSortie?: string | null;
+        joursTraitement?:
+          | {
+              date: string;
+              soins?:
+                | {
+                    heureSoin: string;
+                    titre: string;
+                    description?: string | null;
+                    note?: string | null;
+                    /**
+                     * ✓ Rempli automatiquement
+                     */
+                    agentConnecte?: string | null;
+                    id?: string | null;
+                  }[]
+                | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -189,6 +243,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'patients';
+        value: string | Patient;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -271,6 +329,44 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "patients_select".
+ */
+export interface PatientsSelect<T extends boolean = true> {
+  patientId?: T;
+  nom?: T;
+  prenom?: T;
+  poids?: T;
+  taille?: T;
+  imc?: T;
+  hospitalisations?:
+    | T
+    | {
+        nomHopital?: T;
+        dateEntree?: T;
+        dateSortie?: T;
+        joursTraitement?:
+          | T
+          | {
+              date?: T;
+              soins?:
+                | T
+                | {
+                    heureSoin?: T;
+                    titre?: T;
+                    description?: T;
+                    note?: T;
+                    agentConnecte?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
