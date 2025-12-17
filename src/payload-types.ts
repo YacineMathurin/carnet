@@ -179,25 +179,8 @@ export interface Patient {
    * Calculé automatiquement
    */
   imc?: number | null;
-  traitements?:
-    | {
-        datePrescription: string;
-        medecin: string;
-        medicaments?:
-          | {
-              nomMedicament: string;
-              dosage: string;
-              frequence: string;
-              duree: string;
-              instructions?: string | null;
-              id?: string | null;
-            }[]
-          | null;
-        diagnostic?: string | null;
-        notesSupplementaires?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  Contact: number;
+  ContactUrgence: number;
   hospitalisations?:
     | {
         /**
@@ -225,6 +208,31 @@ export interface Patient {
               id?: string | null;
             }[]
           | null;
+        id?: string | null;
+      }[]
+    | null;
+  allergies?:
+    | {
+        nomAllergie: string;
+        id?: string | null;
+      }[]
+    | null;
+  traitements?:
+    | {
+        datePrescription: string;
+        medecin: string;
+        medicaments?:
+          | {
+              nomMedicament: string;
+              dosage: string;
+              frequence: string;
+              duree: string;
+              instructions?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        diagnostic?: string | null;
+        notesSupplementaires?: string | null;
         id?: string | null;
       }[]
     | null;
@@ -360,25 +368,8 @@ export interface PatientsSelect<T extends boolean = true> {
   poids?: T;
   taille?: T;
   imc?: T;
-  traitements?:
-    | T
-    | {
-        datePrescription?: T;
-        medecin?: T;
-        medicaments?:
-          | T
-          | {
-              nomMedicament?: T;
-              dosage?: T;
-              frequence?: T;
-              duree?: T;
-              instructions?: T;
-              id?: T;
-            };
-        diagnostic?: T;
-        notesSupplementaires?: T;
-        id?: T;
-      };
+  Contact?: T;
+  ContactUrgence?: T;
   hospitalisations?:
     | T
     | {
@@ -401,6 +392,31 @@ export interface PatientsSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        id?: T;
+      };
+  allergies?:
+    | T
+    | {
+        nomAllergie?: T;
+        id?: T;
+      };
+  traitements?:
+    | T
+    | {
+        datePrescription?: T;
+        medecin?: T;
+        medicaments?:
+          | T
+          | {
+              nomMedicament?: T;
+              dosage?: T;
+              frequence?: T;
+              duree?: T;
+              instructions?: T;
+              id?: T;
+            };
+        diagnostic?: T;
+        notesSupplementaires?: T;
         id?: T;
       };
   updatedAt?: T;

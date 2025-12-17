@@ -21,6 +21,7 @@
     "@payloadcms/db-mongodb": "3.68.2",
     "@payloadcms/next": "3.68.2",
     "@payloadcms/richtext-lexical": "3.68.2",
+    "@payloadcms/translations": "^3.68.5",
     "@payloadcms/ui": "3.68.2",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",

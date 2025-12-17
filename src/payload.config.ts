@@ -5,6 +5,10 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
+// 🆕 Import the language packs
+import { en } from '@payloadcms/translations/languages/en'
+import { fr } from '@payloadcms/translations/languages/fr'
+
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import Patients from './collections/Patients'
@@ -19,6 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+
   collections: [Users, Media, Patients],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
@@ -30,4 +35,12 @@ export default buildConfig({
   }),
   sharp,
   plugins: [],
+  i18n: {
+    supportedLanguages: {
+      en, // Include English
+      fr, // Include French
+    },
+    // Set 'fr' as the fallback language if an untranslated key is encountered
+    fallbackLanguage: 'fr',
+  },
 })
